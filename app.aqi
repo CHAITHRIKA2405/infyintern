@@ -1,0 +1,55 @@
+import joblib
+joblib.dump(model, "aqi_model.pkl")
+
+import gradio as gr
+import joblib
+import numpy as np
+
+inputs = [
+    gr.Dropdown(
+        ["Hyderabad", "Delhi", "Mumbai", "Chennai", "Bangalore", "Kolkata"],
+        label="City",
+        info="Select the city"
+    ),
+    gr.Number(label="PM2.5"),
+    gr.Number(label="PM10"),
+    gr.Number(label="NO2"),
+    gr.Number(label="SO2"),
+    gr.Number(label="CO"),
+    gr.Number(label="O3")
+]
+
+def predict_aqi(city, PM2_5, PM10, NO2, SO2, CO, O3):
+    input_data = np.array([[PM2_5, PM10, NO2, SO2, CO, O3]])
+    prediction = model.predict(input_data)[0]
+    prediction = round(prediction, 2)
+
+    # AQI Category
+    if prediction <= 50:
+        category = "Good 😊"
+    elif prediction <= 100:
+        category = "Satisfactory 🙂"
+    elif prediction <= 200:
+        category = "Moderate 😐"
+    elif prediction <= 300:
+        category = "Poor 😕"
+    elif prediction <= 400:
+        category = "Very Poor 😣"
+    else:
+        category = "Severe 😱"
+
+    return city, prediction, category
+outputs = [
+    gr.Textbox(label="Selected City"),
+    gr.Number(label="Predicted AQI"),
+    gr.Textbox(label="AQI Category")
+]
+
+app = gr.Interface(
+    fn=predict_aqi,
+    inputs=inputs,
+    outputs=outputs,
+    title="Air Quality Index Prediction",
+    description="Select your city, enter pollutant values, and get the AQI prediction + category."
+)
+app.launch(share=True)
