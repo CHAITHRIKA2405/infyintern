@@ -27,22 +27,13 @@ Main goals:
   - Categorical: `City`
   - Numeric: `PM2.5`, `PM10`, `NO2`, `SO2`, `CO`, `O3`, `Latitude`, `Longitude`, `Hour`, `Month`, `Day`
 
-- **Preprocessing**:
-  - Replace `"-"` with `NaN`
-  - Convert columns to numeric where possible
-  - Parse `Time` to datetime and extract `Hour`, `Month`, `Day`
-  - Median imputation for missing numeric values
-  - `OneHotEncoder` for `City`
-  - `StandardScaler` for numeric features
-  - All wrapped in a `ColumnTransformer` + `Pipeline`
 
 - **Models Trained**:
   - RandomForestRegressor
   - GradientBoostingRegressor
   - ExtraTreesRegressor
   - XGBRegressor
-  - StackingRegressor (Random Forest + Gradient Boosting + Extra Trees → XGBoost as final estimator)
-
+  
 - **Target**:
   - Continuous AQI value (regression)
 
@@ -60,36 +51,19 @@ Main goals:
 
 ## 🚀 How to Run Locally
 
-1. **Clone the repository**
-git clone https://github.com/Nidhi767/-AQI-Prediction-Project.git
-cd -AQI-Prediction-Project
+ **Clone the repository**
+Colab notebook detected. To show errors in colab notebook, set debug=True in launch()
+* Running on public URL: https://6f63b29b120b9a937e.gradio.live
 
-2. **Create and activate a virtual environment (optional but recommended)**
-python -m venv venv
-
-3. **Install dependencies**
-pip install -r requirements.txt
-
-4. **Run the Flask app**
-python app.py
-
-5. **Open in browser**
-
-Go to:  
-`http://127.0.0.1:5000`
 
 Enter city, pollutant values, latitude/longitude and time → click **Predict AQI** to see predicted value and category.
 
 ## 📸 Screenshots
-![AQI Predictor UI](Screenshot%202025-12-09%20214220.png)
-![Training Output](Screenshot%202025-12-09%20215222.png)
+<img width="822" height="361" alt="app ss" src="https://github.com/user-attachments/assets/1008e0d4-ec90-42a5-a4d8-c855f40135eb" />
+<img width="1888" height="998" alt="Screenshot 2025-12-15 193710" src="https://github.com/user-attachments/assets/0bfaa7a9-2820-459c-970d-183ed1012461" />
 
-## ✨ Future Improvements
 
-- Deploy on a cloud platform (Render / Railway / Heroku).
-- Add city dropdown with predefined locations.
-- Add historical AQI plots and explainable feature importance.
-- Extend to forecasting (predict future AQI using time-series models).
+
 
 ---
 
